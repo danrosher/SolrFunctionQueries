@@ -8,8 +8,8 @@ This function query will take a field name, value to match against and a boost
 If the field contains one or more matches for value, then we return the boost
 otherwise we return 1.0. 
 
-The aim is to multiple these boosts together. Imagine a ML model that 
-given a set of values, we should boost (positively or negatively) the doc accordingly.
+The aim is to multiply these boosts together. Imagine a ML model that from a query
+provides a set of values & boosts, we should apply (positively or negatively) to docs accordingly.
  
  e.g. Given a query that 'looks' like a senior java dev, we may have a model that returns
  features and boosts like the following:

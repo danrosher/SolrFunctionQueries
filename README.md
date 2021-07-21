@@ -12,9 +12,9 @@ given a set of values, we should boost (positively or negatively) the doc accord
  e.g. Given a query that 'looks' like a senior java dev, we may have a model that returns
  features and boosts like the following:
  
- senior_java_dev^1.003  # +ve boost
- java_dev^1.002         # +ve boost
- sales_dev^0.1          # -ve boost
+    senior_java_dev^1.003  # +ve boost
+    java_dev^1.002         # +ve boost
+    sales_dev^0.1          # -ve boost
  
  With this function query we can boost in features field 'feat' like the following:
  

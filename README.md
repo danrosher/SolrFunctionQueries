@@ -1,5 +1,7 @@
 # Solr Misc Function Queries
 
+---
+
 ## FieldValueSourceParser
 
 This function query will take a field name, value to match against and a boost
@@ -70,7 +72,7 @@ This is faster and easier to read that doing this with existing function queries
 ### Filter by FQ
     q={!frange l=6}mul(fvboost(features,"f1",2),fvboost(features,"f2",3),fvboost(features,"f3",5))
     
-
+---
         
     
 

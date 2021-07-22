@@ -54,8 +54,7 @@ This is faster and easier to read that doing this with existing function queries
     
  ## Usage
  
-    #Here 52.01966071979866, -0.4983083573742952 is the query point
- 
+
  ### Get boost in fl, if doc has f1 in features field, return 2 else 1 
     q=*:*&fl=*,id,f1:fvboost(features,"f1",2)        
     

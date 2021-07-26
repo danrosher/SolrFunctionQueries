@@ -135,15 +135,18 @@ define the rate of decay. The decay function is specified as
     <decay_function>(<field-name>,scale,origin_lat,origin_lon,offset,decay) for geo fields
     
 -  <decay_function>  should be one of 'linear', 'exp', or 'gauss'
--  The <field-name> must be a NumericFieldType, DatePointField, or LatLonPointSpatialField field, NOT multi-valued.
 
-e.g. linear("location","23km",52.0247, -0.490,"0km",0.5)
+-  The <field-name> must be a NumericFieldType, DatePointField, or LatLonPointSpatialField field, 
+NOT multi-valued.
+
+    
+    e.g. linear("location","23km",52.0247, -0.490,"0km",0.5)
 
 In the above example, the field is a geo_point and origin can be provided in geo format. scale and offset must be given 
 with a unit in this case. If your field is a date field, you can set scale and offset as days, hours, as with 
 [DateMath](https://solr.apache.org/guide/working-with-dates.html#date-math). 
 
-e.g. gauss(pdate,"+2DAY+6HOUR","2021-07-20T00:00:00Z","+3DAY",0.5) 
+    e.g. gauss(pdate,"+2DAY+6HOUR","2021-07-20T00:00:00Z","+3DAY",0.5) 
 
 pdate: DatePointField
 "+2DAY+6HOUR": range 

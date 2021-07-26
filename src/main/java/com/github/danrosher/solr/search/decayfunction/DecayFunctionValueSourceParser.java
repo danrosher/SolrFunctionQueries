@@ -1,6 +1,11 @@
+//Copyright (c) 2021, Dan Rosher
+//    All rights reserved.
+//
+//    This source code is licensed under the BSD-style license found in the
+//    LICENSE file in the root directory of this source tree.
+
 package com.github.danrosher.solr.search.decayfunction;
 
-import org.apache.lucene.geo.GeoEncodingUtils;
 import org.apache.lucene.index.LeafReaderContext;
 import org.apache.lucene.queries.function.FunctionValues;
 import org.apache.lucene.queries.function.ValueSource;
@@ -16,8 +21,6 @@ import org.apache.solr.search.FunctionQParser;
 import org.apache.solr.search.SyntaxError;
 import org.apache.solr.search.ValueSourceParser;
 import org.apache.solr.util.DateMathParser;
-import org.apache.solr.util.SpatialUtils;
-import org.locationtech.spatial4j.context.SpatialContext;
 import org.locationtech.spatial4j.distance.DistanceUtils;
 import org.locationtech.spatial4j.shape.Point;
 
@@ -72,15 +75,13 @@ public abstract class DecayFunctionValueSourceParser extends ValueSourceParser {
         Point origin = strategy.getSpatialContext()
             .getShapeFactory()
             .pointXY(lon, lat);
-        //Point origin = SpatialContext.GEO.makePoint(lon,lat);
-
         String offsetString = fp.hasMoreArguments() ? fp.parseArg() : "0km";
         double decay = fp.hasMoreArguments() ? fp.parseDouble() : 0.5;
 
         ValueSource vs = ValueSource.fromDoubleValuesSource(strategy.makeDistanceValueSource(origin, DistanceUtils.DEG_TO_KM));//this does the distance calculation from origin
+
         double scale = DistanceUnit.KILOMETERS.parse(scaleString, DistanceUnit.KILOMETERS);
         double offset = DistanceUnit.KILOMETERS.parse(offsetString, DistanceUnit.KILOMETERS);
-        //System.out.println("origin:"+origin.toString()+" offset:"+offset+" scale:"+scale+" decay:"+decay);
 
         return new GeoDecayFunctionValueSource(scale, offset, decay, getDecayStrategy(), vs, name());
     }
@@ -118,8 +119,6 @@ public abstract class DecayFunctionValueSourceParser extends ValueSourceParser {
 
         if (fp.hasMoreArguments()) decay = fp.parseDouble();
 
-        //System.out.println("origin:"+origin+" scale:"+scale+" offset:"+offset+" decay:"+decay);
-
         return new NumericDecayFunctionValueSource(origin, scale, decay, offset, getDecayStrategy(), vs, name());
     }
 }
@@ -151,7 +150,6 @@ class GeoDecayFunctionValueSource extends ValueSource {
             @Override
             public double doubleVal(int doc) throws IOException {
                 double distance = values.doubleVal(doc);
-                //System.out.println("distance:"+distance);
                 return decayStrategy.calculate(Math.max(0.0d, distance - offset), s);
             }
         };
@@ -210,8 +208,6 @@ class NumericDecayFunctionValueSource extends ValueSource {
             @Override
             public double doubleVal(int doc) throws IOException {
                 double val = values.doubleVal(doc);
-                //System.out.println("DDD val:"+val);
-                //System.out.println("cal:"+cal);
                 return decayStrategy.calculate(
                     Math.max(0.0d, Math.abs(val - origin) - offset),
                     s);

@@ -1,5 +1,10 @@
-package com.github.danrosher.solr.search.decayfunction;
+//Copyright (c) 2021, Dan Rosher
+//    All rights reserved.
+//
+//    This source code is licensed under the BSD-style license found in the
+//    LICENSE file in the root directory of this source tree.
 
+package com.github.danrosher.solr.search.decayfunction;
 
 public enum DistanceUnit  {
     INCH(0.0254, "in", "inch"),

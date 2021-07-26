@@ -49,6 +49,8 @@
   <fieldType name="pdouble" class="solr.DoublePointField" docValues="true"/>
   <fieldType name="pfloat" class="solr.FloatPointField" docValues="true"/>
   <fieldType name="pdate" class="solr.DatePointField" docValues="true"/>
+  <fieldType name="location" class="solr.LatLonPointSpatialField" docValues="true"/>
+
 
 
   <fieldType name="boolean" class="solr.BoolField" sortMissingLast="true"/>
@@ -72,7 +74,7 @@
   <fieldType name="random" class="solr.RandomSortField" indexed="true"/>
 
   <!-- A specialized field for geospatial search. If indexed, this fieldType must not be multivalued. -->
-  <fieldType name="location" class="solr.LatLonType" subFieldSuffix="_coordinate"/>
+<!--  <fieldType name="location" class="solr.LatLonType" subFieldSuffix="_coordinate"/>-->
   <!-- sub-centimeter accuracy for RPT; distance calcs -->
   <fieldType name="location_rpt" class="solr.SpatialRecursivePrefixTreeFieldType"
              geo="true" distErrPct="0.025" maxDistErr="0.00001" distanceUnits="kilometers"/>
@@ -82,6 +84,13 @@
 
   <field name="timestamp" type="date" indexed="true" stored="true"/>
   <field name="features" type="string" indexed="true" stored="true" multiValued="true" />
+  <field name="pdate" type="pdate" indexed="true" stored="true" multiValued="false" />
+  <field name="location" type="location" indexed="true" stored="true" multiValued="false" />
+
+  <dynamicField name="*_i"  type="pint"    indexed="true"  stored="true"/>
+  <dynamicField name="*_l"  type="plong"   indexed="true"  stored="true"/>
+  <dynamicField name="*_f"  type="pfloat"  indexed="true"  stored="true"/>
+  <dynamicField name="*_d"  type="pdouble" indexed="true"  stored="true"/>
 
 
   <!-- Test a point field for distances -->
@@ -97,7 +106,6 @@
   <dynamicField name="*_sI" type="string" indexed="true" stored="false"/>
   <dynamicField name="*_sS" type="string" indexed="false" stored="true"/>
   <dynamicField name="*_mfacet" type="string" indexed="true" stored="false" multiValued="true"/>
-  <dynamicField name="*_d" type="double" indexed="true" stored="true"/>
   <dynamicField name="*_ds" type="double" indexed="true" stored="true" multiValued="true"/>
   <dynamicField name="*_d_dv" type="double" indexed="true" stored="true" docValues="true" multiValued="false"/>
   <dynamicField name="*_ds_dv" type="double" indexed="true" stored="true" docValues="true" multiValued="true"/>

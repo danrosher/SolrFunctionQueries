@@ -31,6 +31,11 @@
 <config>
 
   <valueSourceParser name="fvboost" class="com.github.danrosher.solr.search.FieldValueSourceParser" />
+  <valueSourceParser name="linear" class="com.github.danrosher.solr.search.decayfunction.LinearDecayFunctionValueSourceParser" />
+  <valueSourceParser name="gauss" class="com.github.danrosher.solr.search.decayfunction.GaussDecayFunctionValueSourceParser" />
+  <valueSourceParser name="exp" class="com.github.danrosher.solr.search.decayfunction.ExponentialDecayFunctionValueSourceParser" />
+
+
 
   <jmx />
 
